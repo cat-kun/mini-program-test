@@ -1,0 +1,4 @@
+<template name="cart-null">
+  <view>购物车空空如也，赶紧去购物吧</view>
+  <view>去购物</view>
+</template>

@@ -1,0 +1,6 @@
+<scroll-view class='scroll-view' scroll-y='{{true}}' lower-threshold='260' bindscrolltolower='loadmore' bindscroll="onScroll" style="height: {{height}}px">
+  <view class='wrap' wx:for='{{list}}' wx:key='id'>
+    <image class='img' src='{{item.cover}}'></image>
+    <view class='text'>{{item.title}} / {{item.rate}}分</view>
+  </view>
+</scroll-view>

@@ -1,0 +1,77 @@
+<view class="home">
+  <view class="banner">
+    <swiper
+      autoplay="{{autoplay}}"
+      interval="{{interval}}"
+      display-multiple-items="1"
+      previous-margin="20rpx"
+      next-margin="20rpx"
+      circular="true"
+      bindchange="onChange" 
+      current="{{current}}"
+    >
+      <block wx:for="{{banners}}" wx:key="id">
+        <swiper-item>
+          <view class="box">
+            <image src="{{item.url}}" class="slide-image" width="355" height="150"></image>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="num">{{current+1}}/{{banners.length}}</view>
+  </view>
+  <!-- 列表 -->
+  <view class="list">
+    <van-tabs 
+      active="{{ active }}" 
+      sticky 
+      bind:change="onTab"
+      line-width="20"
+    >
+      <van-tab 
+        title="{{item.title}}" 
+        wx:for="{{list.tabTitle}}" 
+        data-id="{{item.id}}"
+        wx:key="{{id}}"
+      >
+      </van-tab>
+      <view class="goods-list-container">
+        <view class="goods-list-wrap">
+          <view class="goods-item" wx:for="{{list.tabCont}}" wx:key="{{item.id}}">
+            <view class="goods-img">
+              <image class="img" src="{{item.img}}"></image>
+            </view>
+            <view class="goods-cont">
+              <view class="text">
+                <text class="goods-title">{{item.title}}</text>
+                <text class="goods-desc">{{item.title}}</text>
+              </view>
+              <view class="goods-bottom">
+                <view class="goods-price">{{item.price}}</view>
+                <view class="goods-inventory">{{item.sale}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-tabs>
+    <!-- loading -->
+    <view class="loading" hidden="true">加载中...</view>
+    
+    <!-- <view class="scroller-container">
+      <scroll-view scroll-x="true" scroll-with-animation="true" class="tabs-container">
+        <view
+          wx:for="{{list.tabTitle}}" 
+          wx:key="{{item.id}}" 
+          data-current="{{index}}" 
+          data-id="{{item.id}}"
+          bindtap="onTab"
+          class="tabs {{currentTab == index ? 'active' :   ''}}" 
+        >
+          <text>{{item.title}}</text>
+          <view class="line"></view>
+        </view>
+      </scroll-view>
+    </view> -->
+  </view>
+</view>

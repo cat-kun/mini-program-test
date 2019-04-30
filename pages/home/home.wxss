@@ -1,0 +1,106 @@
+/* pages/home/home.wxss */
+.banner{
+  position: relative;
+  /* background: url("https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640") top center no-repeat;
+  background-size: cover;
+  height: 300rpx; */
+}
+swiper{
+  height: 300rpx;
+}
+swiper-item{
+  text-align: center;
+  height: 300rpx;
+}
+
+swiper-item img{
+  width: 100%;
+}
+.box{
+  width: 98%;
+  height: 300rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.num{
+  position: absolute;
+  bottom: 20rpx;
+  right: 40rpx;
+  width: 80rpx;
+  height: 30rpx;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 20rpx;
+  color: #fff;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 30rpx;
+}
+.van-tab{
+  font-size: 24rpx !important;
+}
+.van-tab--active{
+  font-size: 32rpx !important;
+}
+
+.list{
+  overflow: hidden;
+}
+.scroller-container{
+  margin-top: 20rpx;
+  position: relative;
+  height: 80rpx;
+}
+.tabs-container{
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.tabs{
+  /* padding: 0 34rpx; */
+  width: 85px;
+  font-size: 30rpx;
+  display: inline-block;
+}
+.tabs.active{
+  font-size: 34rpx;
+  font-weight: bold;
+}
+.tab-line{
+  position: absolute;
+  bottom: 0;
+  transform: translateX(370rpx);
+  transition-duration: 0.3s;
+  width: 40rpx;
+  height: 6rpx;
+  background: #f44;
+  border-radius: 6rpx;
+}
+
+/* 商品列表 */
+.goods-list-container{
+  padding: 20rpx;
+  background: gray;
+  overflow: hidden;
+}
+.goods-list-wrap{
+  background: #fff;
+  border-radius: 5rpx;
+  padding: 20rpx;
+}
+.goods-item{
+  display: flex;
+}
+.goods-img,
+.img{
+  width: 200rpx;
+  height: 200rpx;
+  overflow: hidden;
+  border-radius: 6rpx;
+}
+.goods-cont{
+  flex: 1;
+}

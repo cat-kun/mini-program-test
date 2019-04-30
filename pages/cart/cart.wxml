@@ -1,0 +1,73 @@
+<view class="cart">
+  <!-- 购物车为空 -->
+  <block wx:if="{{ !cartList.length }}">
+    <view>购物车空空如也，赶紧去购物吧</view>
+    <view bind:tap="onGoShopping">去购物</view>
+  </block>
+  <block wx:if="{{ cartList.length }}">
+    <view class="cart-container">
+      <view 
+        class="cart-wrap {{item.isTouchMove ? 'touch-move-active' : ''}}" 
+        wx:for="{{ cartList }}" 
+        data-id="{{item.id}}" 
+        data-index="{{index}}"
+        wx:key="id" 
+        bind:tap="onTap"
+        bindtouchstart="touchstart" 
+        bindtouchmove="touchmove"
+      >
+        <view class="cart-cont">
+          <view class="checkbox">
+            <icon class="select-icon" type="success" size="18" color="{{ item.isChecked ? '#f00' : '#ccc' }}" bind:tap="itemSelect" data-id="{{ item.id }}" />
+          </view>
+          <view class="item-image">
+            <image src="{{ item.img }}" class="img"></image>
+          </view>
+          <view class="column">
+            <text class="item-title">{{ item.title }}</text>
+            <text class="item-desc">{{ item.desc }}</text>
+            <view class="row">
+              <view class="price-wrap">
+                ￥
+                <text class="price">{{ item.price }}</text>
+              </view>
+              <view class="edit-quantity">
+                <text class="btn {{item.number <= 1 ? 'disabled' : ''}}" data-flag="minus" data-number="{{ item.number }}" data-index="{{ index }}" bind:tap="changeQty">-</text>
+                <input 
+                  type="number" 
+                  class="number" 
+                  value="{{ item.number }}" 
+                  data-number="{{ item.number }}" 
+                  data-index="{{ index }}"
+                  bindblur="onInputBlur"
+                />
+                <text class="btn normal" data-flag="add" data-number="{{ item.number }}"  data-index="{{ index }}" bind:tap="changeQty">+</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="del" bind:tap="del" data-id="{{item.id}}">删除</view>
+      </view>
+    </view>
+    <!-- 底部全选 结算 -->
+    <view class="bottom">
+      <!-- <image class="checkbox" src="{{ isAllSelect ? '' : '' }}"></image> -->
+      <view class="select-all">
+        <icon class="select-icon" type="success" size="18" color="{{ isAllSelect ? '#f00' : '#ccc' }}" />
+        <text class="select-all-text">全选</text>
+      </view>
+      <view class="btn-container">
+        <view class="price-container">
+          <view class="total-price">合计:￥{{ total }}</view>
+          <view class="total-wrap">
+            <text class="all-price">总额:￥{{ totalPrice }}</text>
+            <text>优惠:￥{{ sale }}</text>
+          </view>
+        </view>
+        <button class="btn-wrap">
+          去结算({{selectedItem}})
+        </button>
+      </view>
+    </view>
+  </block>
+</view>
