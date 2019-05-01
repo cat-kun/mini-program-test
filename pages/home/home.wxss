@@ -1,5 +1,6 @@
 /* pages/home/home.wxss */
 .banner{
+  width: 750rpx;
   position: relative;
   /* background: url("https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640") top center no-repeat;
   background-size: cover;
@@ -9,15 +10,17 @@ swiper{
   height: 300rpx;
 }
 swiper-item{
+  width: 750rpx;
   text-align: center;
   height: 300rpx;
 }
 
-swiper-item img{
-  width: 100%;
+swiper-item image{
+  width: 750rpx;
 }
 .box{
   width: 98%;
+  /* width: 750rpx; */
   height: 300rpx;
   box-sizing: border-box;
   display: inline-block;

@@ -8,9 +8,9 @@ Page({
    */
   data: {
     banners: [
-      { url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640', id: 1},
-      { url: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640', id: 2},
-      { url: 'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640', id: 3}
+      { url: 'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=750', id: 1},
+      { url: 'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=750', id: 2},
+      { url: 'https://images.unsplash.com/photo-1551446591-142875a901a1?w=750', id: 3}
     ],
     autoplay: false,
     interval: 5000,
@@ -146,7 +146,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    // console.log('到底了')
   },
 
   /**

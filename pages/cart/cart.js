@@ -243,6 +243,7 @@ Page({
   itemSelect(e) {
     // 获取商品的id和数组的下标值
     const id = e.target.dataset.id
+    // const index = 
     console.log('id', id)
   }
 })
