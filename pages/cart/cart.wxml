@@ -18,7 +18,7 @@
       >
         <view class="cart-cont">
           <view class="checkbox">
-            <icon class="select-icon" type="success" size="18" color="{{ item.isChecked ? '#f00' : '#ccc' }}" bind:tap="itemSelect" data-id="{{ item.id }}" />
+            <icon class="select-icon" type="success" size="18" color="{{ item.isChecked ? '#f00' : '#ccc' }}" bind:tap="itemSelect" data-id="{{ item.id }}" data-index="{{ index }}" />
           </view>
           <view class="item-image">
             <image src="{{ item.img }}" class="img"></image>
@@ -52,7 +52,7 @@
     <!-- 底部全选 结算 -->
     <view class="bottom">
       <!-- <image class="checkbox" src="{{ isAllSelect ? '' : '' }}"></image> -->
-      <view class="select-all">
+      <view class="select-all" bind:tap="selectAll">
         <icon class="select-icon" type="success" size="18" color="{{ isAllSelect ? '#f00' : '#ccc' }}" />
         <text class="select-all-text">全选</text>
       </view>

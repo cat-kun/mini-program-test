@@ -242,8 +242,78 @@ Page({
   // 商品选中
   itemSelect(e) {
     // 获取商品的id和数组的下标值
-    const id = e.target.dataset.id
-    // const index = 
-    console.log('id', id)
+    let id = e.target.dataset.id
+    let index = parseInt(e.target.dataset.index)
+    let allPirice = 0   
+
+    // 选中高亮
+    this.data.cartList[index].isChecked = !this.data.cartList[index].isChecked
+
+    // 统计价格
+    let tempTotal = 0
+
+    if(this.data.cartList[index].isChecked) {
+      
+      this.data.total = Number(this.data.total) + Number(this.data.cartList[index].price * this.data.cartList[index].number)
+
+    }else {
+      this.data.total = Number(this.data.total) - Number(this.data.cartList[index].price * this.data.cartList[index].number)
+    }
+
+    this.data.total = (this.data.total).toFixed(2)
+
+    // 是否全选
+    for(let i = 0; i < this.data.cartList.length; i++) {
+      allPirice = Number(allPirice) + Number(this.data.cartList[i].price * this.data.cartList[i].number)
+      allPirice = allPirice.toFixed(2)
+    }
+
+    console.log('allPirice', allPirice)
+    console.log('item total', this.data.total)
+
+    if (allPirice == this.data.total) {
+      this.data.isAllSelect = true;
+    }
+    else {
+      this.data.isAllSelect = false;
+    }
+
+    if(allPirice == this.data.total) {
+      this.data.isAllSelect = true
+    }else {
+      this.data.isAllSelect = false
+    }
+
+    this.setData({
+      cartList: this.data.cartList,
+      total: this.data.total,
+      isAllSelect: this.data.isAllSelect
+    })
+  },
+
+  // 全选
+  selectAll(e) {
+    let i = 0;
+    // 总价赋值为0，避免全选后，再次全选总价计算错误的bug
+    this.data.total = 0
+
+    if (!this.data.isAllSelect) {
+      for(i = 0; i < this.data.cartList.length; i++) {
+        this.data.cartList[i].isChecked = true
+        this.data.total = Number(this.data.total) + Number(this.data.cartList[i].price * this.data.cartList[i].number)
+        this.data.total = (this.data.total).toFixed(2)
+      }
+    }else {
+      for (i = 0; i < this.data.cartList.length; i++) {
+        this.data.cartList[i].isChecked = false
+        this.data.total = 0
+      }
+    }
+
+    this.setData({
+      cartList: this.data.cartList,
+      isAllSelect: !this.data.isAllSelect,
+      total: this.data.total,
+    })
   }
 })
