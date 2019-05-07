@@ -18,7 +18,15 @@
       >
         <view class="cart-cont">
           <view class="checkbox">
-            <icon class="select-icon" type="success" size="18" color="{{ item.isChecked ? '#f00' : '#ccc' }}" bind:tap="itemSelect" data-id="{{ item.id }}" data-index="{{ index }}" />
+            <icon 
+              class="select-icon" 
+              type="success" 
+              size="18" 
+              color="{{ item.isChecked ? '#f00' : '#ccc' }}" 
+              bind:tap="itemSelect" 
+              data-id="{{ item.id }}" 
+              data-index="{{ index }}"
+            />
           </view>
           <view class="item-image">
             <image src="{{ item.img }}" class="img"></image>

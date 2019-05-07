@@ -46,17 +46,21 @@ Page({
       },
       success: res => {
         let {data} = res.data
-        // 通过给每项数据加 isTouchMove 标识是否显示删除按钮
         data.forEach(item => {
+          // 通过给每项数据加 isTouchMove 标识是否显示删除按钮
           item.isTouchMove = false
+          // 每一项添加isCheckedd
           item.isChecked = false
+          // 每一项计算出小计
+          item.total = (item.number * item.price).toFixed(2)
         })
 
         this.setData({
           cartList: data
         })
         wx.hideLoading()
-        console.log('cartList', this.data.cartList)
+        // console.log('cartList', this.data.cartList)
+        this.getTotalNum()
       }
     })
   },
@@ -204,7 +208,7 @@ Page({
     this.setData({cartList})
   },
 
-  // 商品加
+  // 商品加减
   changeQty(e) {
     const index = e.target.dataset.index
     let quantity = e.target.dataset.number
@@ -216,8 +220,30 @@ Page({
         this.data.cartList[index].number = --quantity
       }
     }
+    // this.data.cartList[index].total = Number(this.data.cartList[index].number * this.data.cartList[index].price).toFixed(2)
+
+    // 遍历已选中商品，计算出合计
+    // let tempTotal = 0
+    // for(let i = 0; i < this.data.cartList.length; i++) {
+    //   if(this.data.cartList[i].isChecked) {
+    //     console.log( '遍历已选中商品，计算出合计', this.data.cartList[i].total )
+    //     // this.data.total = Number(this.data.cartList[i].total + this.data.cartList[i].total)
+    //     tempTotal += Number(this.data.cartList[i].total)
+    //   }
+    // }
+    // console.log('tempTotal', tempTotal)
+
+    // this.data.total = tempTotal.toFixed(2)
+
+    this.data.cartList[index].total = this.getPrice(this.data.cartList[index].number, this.data.cartList[index].price)
+
+    // console.log(this.data.cartList)
+
+    this.getTotalNum()
+
     this.setData({
-      cartList: this.data.cartList
+      cartList: this.data.cartList,
+      total: this.data.total,
     })
   },
 
@@ -254,22 +280,23 @@ Page({
 
     if(this.data.cartList[index].isChecked) {
       
-      this.data.total = Number(this.data.total) + Number(this.data.cartList[index].price * this.data.cartList[index].number)
+      // this.data.total = Number(this.data.total) + Number(this.data.cartList[index].price * this.data.cartList[index].number)
+      // this.data.total = Number(this.data.total + this.data.cartList[index].total)
+      // console.log('单品选中的total', this.data.total)
+      // console.log('单品选中的单项合计', this.data.cartList[index].total)
+      // this.data.total = Number(this.data.total + this.data.cartList[index].total)
 
     }else {
       this.data.total = Number(this.data.total) - Number(this.data.cartList[index].price * this.data.cartList[index].number)
     }
 
-    this.data.total = (this.data.total).toFixed(2)
+    // this.data.total = (this.data.total).toFixed(2)
 
     // 是否全选
     for(let i = 0; i < this.data.cartList.length; i++) {
       allPirice = Number(allPirice) + Number(this.data.cartList[i].price * this.data.cartList[i].number)
       allPirice = allPirice.toFixed(2)
     }
-
-    console.log('allPirice', allPirice)
-    console.log('item total', this.data.total)
 
     if (allPirice == this.data.total) {
       this.data.isAllSelect = true;
@@ -278,15 +305,16 @@ Page({
       this.data.isAllSelect = false;
     }
 
-    if(allPirice == this.data.total) {
-      this.data.isAllSelect = true
-    }else {
-      this.data.isAllSelect = false
-    }
+    // if(allPirice == this.data.total) {
+    //   this.data.isAllSelect = true
+    // }else {
+    //   this.data.isAllSelect = false
+    // }
+
+    this.getTotalNum()
 
     this.setData({
       cartList: this.data.cartList,
-      total: this.data.total,
       isAllSelect: this.data.isAllSelect
     })
   },
@@ -300,20 +328,52 @@ Page({
     if (!this.data.isAllSelect) {
       for(i = 0; i < this.data.cartList.length; i++) {
         this.data.cartList[i].isChecked = true
-        this.data.total = Number(this.data.total) + Number(this.data.cartList[i].price * this.data.cartList[i].number)
-        this.data.total = (this.data.total).toFixed(2)
+        // this.data.total = Number(this.data.total) + Number(this.data.cartList[i].price * this.data.cartList[i].number)
+        // this.data.total = (this.data.total).toFixed(2)
       }
     }else {
       for (i = 0; i < this.data.cartList.length; i++) {
         this.data.cartList[i].isChecked = false
-        this.data.total = 0
       }
     }
+
+    this.getTotalNum()
 
     this.setData({
       cartList: this.data.cartList,
       isAllSelect: !this.data.isAllSelect,
       total: this.data.total,
+    })
+  },
+
+  /**
+   * @method 统计商品小计
+   * @param {String} price 价格
+   * @param {String} num 数量
+   */
+  getPrice(price, num) {
+    let priceMoney = 0
+    priceMoney = price * num
+    return Number(priceMoney.toFixed(2))
+  },
+
+  /**
+   * @method 获取选中总计件数
+   */
+  getTotalNum() {
+    let checknum = 0
+    let checkMoney = 0
+
+    this.data.cartList.forEach((item, index) => {
+      if(item.isChecked) {
+        checknum += Number(this.data.cartList[index].number)
+        checkMoney += this.getPrice(this.data.cartList[index].number, this.data.cartList[index].price)
+      }
+    })
+
+    this.setData({
+      selectedItem: checknum,
+      total: checkMoney
     })
   }
 })
